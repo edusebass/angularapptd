@@ -21,4 +21,18 @@ export class LabsComponent {
   name = "Eduardo";
   img = 'https://bs-uploads.toptal.io/blackfish-uploads/components/seo/5911499/og_image/optimized/top-18-most-common-angularjs-developer-mistakes-41f9ad303a51db70e4a5204e101e7414.png'
   disabled = true
+  person = {
+    name: "Eduardo",
+    age: 23,
+    address: "Calle 1 # 2-3"
+  }
+
+
+  clickHandler() {
+    alert("Hola")
+  }
+
+  changeHandler(event: Event) {
+    console.log(event)
+  }
 }

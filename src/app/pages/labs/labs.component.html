@@ -11,3 +11,12 @@
 <img [src]="img" width="400px" alt="">
 <input type="text"  [value]="name">
 <button [disabled]="disabled" >ClickMe</button>
+<hr>
+<button (click)="clickHandler()">Click me</button>
+<hr>
+<button (dbclick)="clickHandler()">Click me</button>
+
+<hr>
+<p>(change)</p>
+<input type="number" [value]="person.age" (change)="changeHandler($event)">
+
