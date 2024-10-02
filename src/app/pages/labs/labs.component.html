@@ -21,3 +21,6 @@
 <input type="number" [value]="person.age" (change)="changeHandler($event)" />
 <p>(keydown)</p>
 <input type="text" [value]="person.age" (keydown)="keydownHandler($event)" />
+<input type="text" [value]="name()" (keydown)="keydownHandler($event)" />
+
+<p>hola soy {{ name() }}</p>

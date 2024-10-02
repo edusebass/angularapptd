@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -17,7 +17,7 @@ export class LabsComponent {
     'Learn React',
     'Learn Vue',
   ];
-  name = 'Eduardo';
+  // name = 'Eduardo';
   img =
     'https://bs-uploads.toptal.io/blackfish-uploads/components/seo/5911499/og_image/optimized/top-18-most-common-angularjs-developer-mistakes-41f9ad303a51db70e4a5204e101e7414.png';
   disabled = true;
@@ -26,6 +26,8 @@ export class LabsComponent {
     age: 23,
     address: 'Calle 1 # 2-3',
   };
+
+  name = signal('Eduardo');
 
   clickHandler() {
     alert('Hola');
@@ -38,6 +40,7 @@ export class LabsComponent {
   keydownHandler(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
     console.log(input.value);
+    this.name.set(input.value);
     console.log(event);
   }
 }
