@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { Task } from './../../models/task.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, JsonPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -14,7 +14,7 @@ export class HomeComponent {
     {
       id: 1,
       title: 'Learn Angular',
-      completed: false,
+      completed: true,
     },
     {
       id: 2,
@@ -47,6 +47,20 @@ export class HomeComponent {
     this.tasks.update((tasks) => {
       tasks.splice(index, 1);
       return tasks;
+    });
+  }
+
+  updateTask(index: number) {
+    this.tasks.update((tasks) => {
+      return tasks.map((task, i) => {
+        if (i === index) {
+          return {
+            ...task,
+            completed: !task.completed,
+          };
+        }
+        return task;
+      });
     });
   }
 }
