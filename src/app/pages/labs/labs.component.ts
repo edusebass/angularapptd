@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-labs',
@@ -21,11 +22,11 @@ export class LabsComponent {
   img =
     'https://bs-uploads.toptal.io/blackfish-uploads/components/seo/5911499/og_image/optimized/top-18-most-common-angularjs-developer-mistakes-41f9ad303a51db70e4a5204e101e7414.png';
   disabled = true;
-  person = {
+  person = signal({
     name: 'Eduardo',
     age: 23,
     address: 'Calle 1 # 2-3',
-  };
+  });
 
   name = signal('Eduardo');
 
@@ -43,4 +44,29 @@ export class LabsComponent {
     this.name.set(input.value);
     console.log(event);
   }
+
+  changeAgeHandler(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const newValue = input.value;
+    this.person.update((prevState) => {
+      return {
+        ...prevState,
+        age: parseInt(newValue),
+      };
+    });
+  }
+
+  // updateTaskEditingMode(index: number) {
+  //   this.tasks.update((prevState) => {
+  //     return prevState.map((task: Task, position) => {
+  //       if (position === index) {
+  //         return {
+  //           ...task,
+  //           editing: true,
+  //         };
+  //       }
+  //       return task;
+  //     });
+  //   });
+  // }
 }

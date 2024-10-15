@@ -22,9 +22,19 @@
 
 <hr />
 <p>(change)</p>
-<input type="number" [value]="person.age" (change)="changeHandler($event)" />
+<input type="number" [value]="person().age" (change)="changeHandler($event)" />
 <p>(keydown)</p>
-<input type="text" [value]="person.age" (keydown)="keydownHandler($event)" />
+<input type="text" [value]="person().age" (keydown)="keydownHandler($event)" />
 <input type="text" [value]="name()" (keydown)="keydownHandler($event)" />
 
 <p>hola soy {{ name() }}</p>
+
+<hr />
+<input
+  type="number"
+  [value]="person().age"
+  (change)="changeAgeHandler($event)"
+/>
+
+<div *ngIf="person().age === 18; else elseBlock">my contend</div>
+<ng-template #elseBlock> soy nicolas y soy menor de edad </ng-template>
