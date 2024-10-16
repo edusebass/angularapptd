@@ -3,11 +3,13 @@
 <ul>
   <p>totalll:</p>
   <p>TAMAÑO ARRAY{{ tasks().length }}</p>
-  <li *ngFor="let task of tasks(); index as i">
-    {{ task }}
-    | numero
-    {{ i }}
-  </li>
+  @for (task of tasks(); track task; let i = $index) {
+    <li>
+      {{ task }}
+      | numero
+      {{ i }}
+    </li>
+  }
 </ul>
 <hr />
 <h2>{{ "Hola".repeat(10) }}</h2>
@@ -34,7 +36,10 @@
   type="number"
   [value]="person().age"
   (change)="changeAgeHandler($event)"
-/>
+  />
 
-<div *ngIf="person().age === 18; else elseBlock">my contend</div>
-<ng-template #elseBlock> soy nicolas y soy menor de edad </ng-template>
+  @if (person().age === 18) {
+    <div>my contend</div>
+  } @else {
+    soy nicolas y soy menor de edad
+  }

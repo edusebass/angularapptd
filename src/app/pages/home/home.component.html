@@ -10,64 +10,68 @@
         type="text"
         [formControl]="newTaskCtrl"
         (keydown.enter)="changleHandler()"
-      />
-    </div>
-  </header>
-  <div class="container todoapp-wrapper">
-    <section class="main">
-      <ul class="todo-list">
-        <li
-          (dblclick)="editTask(i)"
-          *ngFor="let task of taskByFilter(); index as i"
-          [class.editing]="task.editing"
-          [class.completed]="task.completed"
-        >
-          <div class="view">
-            <input
-              class="toggle"
-              type="checkbox"
-              [checked]="task.completed"
-              (click)="toggleComplete(i, $event)"
-            />
-            <label>{{ task.title }}</label>
-            <button class="destroy" (click)="deleteTask(i)"></button>
-          </div>
-          <input
-            class="edit"
-            (keydown.enter)="updateTaskText(i, $event)"
-            [value]="task.title"
-          />
-        </li>
-      </ul>
-    </section>
-    <footer class="footer">
-      <span class="todo-count">
-        <strong>{{ taskByFilter().length }} </strong>
-        <span *ngIf="tasks().length === 1; else elseBlock"> item </span>
-        <ng-template #elseBlock>items </ng-template>
-      </span>
-      <ul class="filters">
-        <li>
-          <a (click)="changeFilter('all')" [class.selected]="filter() === 'all'"
-            >All</a
-          >
-        </li>
-        <li>
-          <a
-            (click)="changeFilter('pending')"
-            [class.selected]="filter() === 'pending'"
-            >Pending</a
-          >
-        </li>
-        <li>
-          <a
-            (click)="changeFilter('completed')"
-            [class.selected]="filter() === 'completed'"
-            >Completed</a
-          >
-        </li>
-      </ul>
-      <button class="clear-completed">Clear completed</button>
-    </footer>
-  </div>
-</section>
+        />
+      </div>
+    </header>
+    <div class="container todoapp-wrapper">
+      <section class="main">
+        <ul class="todo-list">
+          @for (task of taskByFilter(); track task; let i = $index) {
+            <li
+              (dblclick)="editTask(i)"
+              [class.editing]="task.editing"
+              [class.completed]="task.completed"
+              >
+              <div class="view">
+                <input
+                  class="toggle"
+                  type="checkbox"
+                  [checked]="task.completed"
+                  (click)="toggleComplete(i, $event)"
+                  />
+                  <label>{{ task.title }}</label>
+                  <button class="destroy" (click)="deleteTask(i)"></button>
+                </div>
+                <input
+                  class="edit"
+                  (keydown.enter)="updateTaskText(i, $event)"
+                  [value]="task.title"
+                  />
+                </li>
+              }
+            </ul>
+          </section>
+          <footer class="footer">
+            <span class="todo-count">
+              <strong>{{ taskByFilter().length }} </strong>
+              @if (tasks().length === 1) {
+                <span> item </span>
+              } @else {
+                items
+              }
+            </span>
+            <ul class="filters">
+              <li>
+                <a (click)="changeFilter('all')" [class.selected]="filter() === 'all'"
+                  >All</a
+                  >
+                </li>
+                <li>
+                  <a
+                    (click)="changeFilter('pending')"
+                    [class.selected]="filter() === 'pending'"
+                    >Pending</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      (click)="changeFilter('completed')"
+                      [class.selected]="filter() === 'completed'"
+                      >Completed</a
+                      >
+                    </li>
+                  </ul>
+                  <button class="clear-completed">Clear completed</button>
+                </footer>
+              </div>
+            </section>

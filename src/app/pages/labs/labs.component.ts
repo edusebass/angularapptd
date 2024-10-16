@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-labs',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './labs.component.html',
   styleUrl: './labs.component.css',
 })
