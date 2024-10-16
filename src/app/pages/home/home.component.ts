@@ -1,5 +1,12 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  Injector,
+  signal,
+} from '@angular/core';
 import { Task } from './../../models/task.model';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -11,28 +18,34 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  tasks = signal<Task[]>([
-    {
-      id: 1,
-      title: 'Learn Angular',
-      completed: true,
-    },
-    {
-      id: 2,
-      title: 'Learn React',
-      completed: false,
-    },
-    {
-      id: 3,
-      title: 'Learn Vue',
-      completed: false,
-    },
-  ]);
+  tasks = signal<Task[]>([]);
 
   newTaskCtrl = new FormControl('', {
     nonNullable: true,
     validators: [Validators.required, Validators.pattern(/^\S*$/)],
   });
+
+  injector = inject(Injector);
+
+  ngOnInit() {
+    const storage = localStorage.getItem('tasks');
+    if (storage) {
+      const tasks = JSON.parse(storage);
+      this.tasks.set(tasks);
+    }
+    this.trackTasks();
+  }
+
+  trackTasks() {
+    effect(
+      () => {
+        const tasks = this.tasks();
+        console.log('tasks', tasks);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+      },
+      { injector: this.injector }
+    );
+  }
 
   changleHandler() {
     if (this.newTaskCtrl.valid) {
